@@ -101,6 +101,7 @@ I1004 18:35:36.138855 140570807564032 model_lib_v2.py:682] Step 400 per-step tim
 In this experiment I changed the optimizer to use adam optimizer
 with no learning rate schedule (on top of the changes from experiment 1) with an exponentially decaying learning rate with decay steps of 500 and initial learning rate of 0.001. That did not give great results so I revisited the augmentations and ended up choosing the following augmentations: random adjust brightness, horizontal flip, crop image and rgb to gray. Also increased the number of training steps to 25000. That brought the loss down between 2 and 3 and in the first few hundred steps so I continued training as the loss continues to go down.
 
+![](experiments/experiment2/loss_curve.png)
 
 ```
 I1004 19:23:47.248156 139892938168064 model_lib_v2.py:682] Step 1500 per-step time 0.764s loss=1.515
@@ -116,14 +117,3 @@ INFO:tensorflow:Step 2000 per-step time 0.779s loss=1.715
 I1004 19:30:10.181799 139892938168064 model_lib_v2.py:682] Step 2000 per-step time 0.779s loss=1.715
 ```
 
-I experimented with changing the optimizer and data augmentation to improve the training
-performance. Ultimately, the ADAM optimizer with an initial learning rate of 0.001 and exponentially
-decaying learning rate with decay steps of 700, I was able to get down to a training loss of 
-about 1.3. The augmentations I ended up using were the following:
-	a. random horizontal flip
-	b. randomy rgb to gray conversion
-	c. randomly adjust brightness
-	d. random adjust contrast
-	e. random adjust hue
-	f. random adjust saturation
-	g. random crop image
