@@ -68,17 +68,53 @@ I1004 17:57:20.851933 140126150264576 model_lib_v2.py:682] Step 2500 per-step ti
 
 #### Improving on the Reference
 #####Experiment0: 
-Added the random_image_scale augmentation. With this change the loss comes down in the range of 4 to 5.
+
+![](experiments/experiment0/loss_curve.png)
+Added the random image scale augmentation. With this change the loss comes down in the range of 4 to 5.
 
 ```
-
+I1004 18:24:06.289485 139711515727616 model_lib_v2.py:682] Step 1900 per-step time 0.760s loss=4.898
+INFO:tensorflow:Step 2000 per-step time 0.761s loss=4.979
+I1004 18:25:21.603495 139711515727616 model_lib_v2.py:682] Step 2000 per-step time 0.761s loss=4.979
+INFO:tensorflow:Step 2100 per-step time 0.761s loss=5.636
+I1004 18:26:38.783661 139711515727616 model_lib_v2.py:682] Step 2100 per-step time 0.761s loss=5.636
+INFO:tensorflow:Step 2200 per-step time 0.751s loss=4.757
+I1004 18:27:54.655024 139711515727616 model_lib_v2.py:682] Step 2200 per-step time 0.751s loss=4.757
 ```
 
 ##### Experiment1:
-Added random adjust brightness, contrast and hue and random distor color to setting from experiment 0.
+![](experiments/experiment1/loss_curve.png)
+Added random adjust brightness, contrast and hue and random distor color to setting from experiment 0. With this change the loss further decreases to the range of 3-4 in the first 100 steps. however it blows up after that.
 
 
+```
+I1004 18:31:51.066531 140570807564032 model_lib_v2.py:682] Step 100 per-step time 0.761s loss=3.605
+INFO:tensorflow:Step 200 per-step time 0.731s loss=125.497
+I1004 18:33:06.010513 140570807564032 model_lib_v2.py:682] Step 200 per-step time 0.731s loss=125.497
+INFO:tensorflow:Step 300 per-step time 0.729s loss=288.689
+I1004 18:34:21.137516 140570807564032 model_lib_v2.py:682] Step 300 per-step time 0.729s loss=288.689
+INFO:tensorflow:Step 400 per-step time 0.770s loss=264.800
+I1004 18:35:36.138855 140570807564032 model_lib_v2.py:682] Step 400 per-step time 0.770s loss=264.800
+```
 
+##### Experiment2:
+In this experiment I changed the optimizer to use adam optimizer
+with no learning rate schedule (on top of the changes from experiment 1) with an exponentially decaying learning rate with decay steps of 500 and initial learning rate of 0.001. That did not give great results so I revisited the augmentations and ended up choosing the following augmentations: random adjust brightness, horizontal flip, crop image and rgb to gray. Also increased the number of training steps to 25000. That brought the loss down between 2 and 3 and in the first few hundred steps so I continued training as the loss continues to go down.
+
+
+```
+I1004 19:23:47.248156 139892938168064 model_lib_v2.py:682] Step 1500 per-step time 0.764s loss=1.515
+INFO:tensorflow:Step 1600 per-step time 0.739s loss=1.393
+I1004 19:25:05.015934 139892938168064 model_lib_v2.py:682] Step 1600 per-step time 0.739s loss=1.393
+INFO:tensorflow:Step 1700 per-step time 0.761s loss=1.399
+I1004 19:26:21.220833 139892938168064 model_lib_v2.py:682] Step 1700 per-step time 0.761s loss=1.399
+INFO:tensorflow:Step 1800 per-step time 0.771s loss=1.556
+I1004 19:27:37.478454 139892938168064 model_lib_v2.py:682] Step 1800 per-step time 0.771s loss=1.556
+INFO:tensorflow:Step 1900 per-step time 0.795s loss=1.440
+I1004 19:28:54.050045 139892938168064 model_lib_v2.py:682] Step 1900 per-step time 0.795s loss=1.440
+INFO:tensorflow:Step 2000 per-step time 0.779s loss=1.715
+I1004 19:30:10.181799 139892938168064 model_lib_v2.py:682] Step 2000 per-step time 0.779s loss=1.715
+```
 
 I experimented with changing the optimizer and data augmentation to improve the training
 performance. Ultimately, the ADAM optimizer with an initial learning rate of 0.001 and exponentially
