@@ -1,4 +1,4 @@
 #! /bin/bash
 
 rm -rf experiments/reference/c*
-rm experiments/reference/train
+rm -rf experiments/reference/train
