@@ -1,4 +1,4 @@
-## Submission Template
+## Submission
 
 ### Project overview
 The goal of this project is to use a deep learning based object detection model to detect and localize
@@ -49,9 +49,37 @@ non overlapping images but they are assumed to be drawn from the same distributi
 #### Training
 
 I used the already configured SSD based model for this project which contains a resnet 50 v1 based
-backbone as the feature extractor. With the default pipeline_new.config file, the minimum loss I could get to was limited to around 7.
+backbone as the feature extractor. 
 
-#### Improve on the reference
+
+##### Reference
+With the default pipeline_new.config file, the minimum loss I could get to was between 6 and 7.
+
+![](experiments/reference/loss_curve.png)
+A snippet of the log from the reference run follows:
+
+```
+I1004 17:54:48.105907 140126150264576 model_lib_v2.py:682] Step 2300 per-step time 0.759s loss=6.708
+INFO:tensorflow:Step 2400 per-step time 0.747s loss=6.667
+I1004 17:56:04.581851 140126150264576 model_lib_v2.py:682] Step 2400 per-step time 0.747s loss=6.667
+INFO:tensorflow:Step 2500 per-step time 0.762s loss=7.055
+I1004 17:57:20.851933 140126150264576 model_lib_v2.py:682] Step 2500 per-step time 0.762s loss=7.055
+```
+
+#### Improving on the Reference
+#####Experiment0: 
+Added the random_image_scale augmentation. With this change the loss comes down in the range of 4 to 5.
+
+```
+
+```
+
+##### Experiment1:
+Added random adjust brightness, contrast and hue and random distor color to setting from experiment 0.
+
+
+
+
 I experimented with changing the optimizer and data augmentation to improve the training
 performance. Ultimately, the ADAM optimizer with an initial learning rate of 0.001 and exponentially
 decaying learning rate with decay steps of 700, I was able to get down to a training loss of 
