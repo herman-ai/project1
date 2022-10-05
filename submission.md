@@ -14,7 +14,7 @@ navigate around such obstacles and not bump into them (causing accidents).
 	own GPU instance, they could download the data from Google Cloud Bucket at 
 	(https://console.cloud.google.com/storage/browser/waymo_open_dataset_v_1_2_0_individual_files/) as described in the project instructions
 	and splitting them up into train, test and validation splits by running `create_splits.py`.
-2. The exploratory data analysis was done by running the jupyter notebook `Explore Data Analysis.ipynb`. Please find the saved state of the
+2. The exploratory data analysis was done by running the jupyter notebook `Exploratory Data Analysis.ipynb`. Please find the saved state of the
 	notebook in the commited project. Similarly, various data augmentations were also experimented with using the notebook
 	`Explplore augmentations.ipynb`.
 3. The pipeline config file was edited using the following command to set up the pipekline for the SSD model:
@@ -36,8 +36,14 @@ navigate around such obstacles and not bump into them (causing accidents).
 
 ### Dataset
 #### Dataset analysis
-The base training curve, the final training curve from tensorboard, the distribution of the labels
-in the dataset and image augmentation analysis is attached in screenshots in the attached images.
+I used the repository's `Exploratory Data Analysis.ipynb` notebook to understand the dataset better by first implementing the `display_images` function to show 6 random images at a time using matplotlib. The three types of labels were plotted using different colors as shown in the following figure:
+
+![](analysis/display_images.png)
+Then I used the seaborn library barplot to plot the distribution of
+the three types of labels in a randomly chosen set of 20K images. The results are shown in the following figure:
+
+![](analysis/label_dist.png)
+
 There are a lot more cars and pedestrians compared to cyclists in the dataset.
 
 #### Cross validation
