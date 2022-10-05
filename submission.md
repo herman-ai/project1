@@ -46,11 +46,7 @@ the three types of labels in a randomly chosen set of 20K images. The results ar
 
 There are a lot more cars and pedestrians compared to cyclists in the dataset.
 
-#### Cross validation
-The validation strategy adopted here is to first train the model on a train set and then evaluate it
-on a held out validation set. The best performing model on the validation set was used to generate
-the animation on the dataset contained in the test set. Train, validation and test sets contain
-non overlapping images but they are assumed to be drawn from the same distribution.
+
 
 #### Training
 
@@ -123,3 +119,10 @@ INFO:tensorflow:Step 2000 per-step time 0.779s loss=1.715
 I1004 19:30:10.181799 139892938168064 model_lib_v2.py:682] Step 2000 per-step time 0.779s loss=1.715
 ```
 
+#### Cross validation
+The validation strategy adopted here is to first train the model on a train set and then evaluate it
+on a held out validation set. The best performing model on the validation set was used to generate
+the animation on the dataset contained in the test set. Train, validation and test sets contain
+non overlapping images but they are assumed to be drawn from the same distribution. Validation loss is slightly higher than the training loss which is expected because the model was optimized for training dataset which, although is drawn from the same distribution, is still not exactly the same as the validation dataset.
+
+![](experiments/experiment2/val_loss.png)
